@@ -231,22 +231,6 @@ class TuyaCloudClient:
         uri = 'v1.0/homes/%s/rooms/%s/devices' % (home_id, room_id)
         return self.__send_request(uri=uri)
 
-    def get_all_devices(self, user_id=None):
-        """
-        Get a list of devices
-        GET /v1.0/users/{uid}/devices
-        """
-        if not user_id:
-            user_id = self.UID
-        if not user_id:
-            raise TuyaCloudClientException("Missing Function Parameters")
-        uri = 'v1.0/users/%s/devices' % (user_id)
-        
-        result = self.__send_request(uri=uri)
-        if result['result']:
-            result = result['result']
-        return result
-
     def get_category_list(self):
         '''
         Get Category List
@@ -280,8 +264,6 @@ class TuyaCloudClient:
 
         uri = 'v1.0/users/%s/devices' % (user_id)
         return self.__send_request(uri=uri)
-
-
 
 # other methods
 # should do tests on it
