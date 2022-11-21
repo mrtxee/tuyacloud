@@ -4,7 +4,7 @@ class TuyaCloudClientNicer(TuyaCloudClient):
     def __cut_metada_decorator(func): # type: ignore
         def decorate( self, *args, **kwargs ) :
             response = func( self, *args, **kwargs ) # type: ignore
-            if True==response['success'] and response['result']:
+            if response['success']:
                 response = response['result']
             else:
                 raise TuyaCloudClientResponseException("response[result] !True")
@@ -34,10 +34,7 @@ class TuyaCloudClientNicer(TuyaCloudClient):
         return super().get_home_members(home_id)
     @__cut_metada_decorator  # type: ignore
     def get_room_devices(self, home_id=None, room_id=None):
-        return super().get_room_devices(home_id)
-    @__cut_metada_decorator  # type: ignore
-    def get_all_devices(self, user_id=None):
-        return super().get_all_devices(user_id)
+        return super().get_room_devices(home_id, room_id)
     @__cut_metada_decorator  # type: ignore
     def get_user_homes(self, user_id=None):
         return super().get_user_homes(user_id)
