@@ -6,6 +6,7 @@ import time
 import requests
 from .TuyaCloudClientExceptions import *
 
+
 class TuyaCloudClient:
     def __init__(self, ENDPOINT_URL: str, ACCESS_ID: str, ACCESS_SECRET: str, UID: str):
         self.ENDPOINT_URL = ENDPOINT_URL
@@ -25,7 +26,7 @@ class TuyaCloudClient:
         response = self.__send_request('v1.0/token?grant_type=1')
 
         if not response['success']:
-            self.logger.debug("Cloud __update_token(). "+str(response['msg']))
+            self.logger.debug("Cloud __update_token(). " + str(response['msg']))
 
         self.token = response['result']['access_token']
         return self.token
@@ -40,7 +41,7 @@ class TuyaCloudClient:
             headers['Content-type'] = 'application/json'
         else:
             action = 'GET'
-        now = int(time.time()*1000)
+        now = int(time.time() * 1000)
         headers = dict(list(headers.items()) + [('Signature-Headers', ":".join(headers.keys()))]) if headers else {}
         if self.token is None:
             payload = self.ACCESS_ID + str(now)
@@ -48,12 +49,13 @@ class TuyaCloudClient:
         else:
             payload = self.ACCESS_ID + self.token + str(now)
 
-        payload += ('%s\n' % action +                                                # HTTPMethod
-            hashlib.sha256(bytes((body or "").encode('utf-8'))).hexdigest() + '\n' + # type: ignore Content-SHA256
-            ''.join(['%s:%s\n'%(key, headers[key])                                   # Headers
-                        for key in headers.get("Signature-Headers", "").split(":")
-                        if key in headers]) + '\n' +
-            '/' + url.split('//', 1)[-1].split('/', 1)[-1])
+        payload += ('%s\n' % action +  # HTTPMethod
+                    hashlib.sha256(
+                        bytes((body or "").encode('utf-8'))).hexdigest() + '\n' +  ##type: ignore Content-SHA256
+                    ''.join(['%s:%s\n' % (key, headers[key])  # Headers
+                             for key in headers.get("Signature-Headers", "").split(":")
+                             if key in headers]) + '\n' +
+                    '/' + url.split('//', 1)[-1].split('/', 1)[-1])
         # Sign Payload
         signature = hmac.new(
             self.ACCESS_SECRET.encode('utf-8'),
@@ -93,10 +95,10 @@ class TuyaCloudClient:
 
         try:
             response_dict = json.loads(response.content.decode())
-        except:
+        except Exception:
             try:
                 response_dict = json.loads(response.content)
-            except:
+            except Exception:
                 raise TuyaCloudClientException("Missing Tuya Cloud Key or Secret")
         # Check to see if token is expired
         return response_dict
@@ -116,9 +118,10 @@ class TuyaCloudClient:
         if not device_id:
             raise TuyaCloudClientException("Missing Function Parameters")
 
-        uri = 'v1.1/iot-03/devices/%s' % (device_id)
+        uri = 'v1.1/iot-03/devices/%s' % device_id
         return self.__send_request(uri=uri)
-        #return self._getdevice(param='',  deviceid=device_id, ver='v1.1')
+        # return self._getdevice(param='',  deviceid=device_id, ver='v1.1')
+
     def get_device_details(self, device_id=None):
         """
         Get device details
@@ -128,7 +131,7 @@ class TuyaCloudClient:
         if not device_id:
             raise TuyaCloudClientException("Missing Function Parameters")
 
-        uri = 'v1.0/devices/%s' % (device_id)
+        uri = 'v1.0/devices/%s' % device_id
         return self.__send_request(uri=uri)
 
     def get_device_logs(self, device_id=None):
@@ -143,11 +146,11 @@ class TuyaCloudClient:
         if not device_id:
             raise TuyaCloudClientException("Missing Function Parameters")
 
-        #uri = 'v1.0/devices/%s/logs' % (device_id)
-        result = {  'result' : 'method is under maintainse',
-                    'msg' : 'make yo ass into work launch it'
+        # uri = 'v1.0/devices/%s/logs' % device_id
+        result = {'result': 'method is under maintainse',
+                  'msg': 'make yo ass into work launch it'
                   }
-        #return self.__send_request(uri=uri)
+        # return self.__send_request(uri=uri)
         return result
 
     def get_home_data(self, home_id=None):
@@ -168,7 +171,7 @@ class TuyaCloudClient:
         if not home_id:
             raise TuyaCloudClientException("Missing Function Parameters")
 
-        uri = 'v1.0/homes/%s' % (home_id)
+        uri = 'v1.0/homes/%s' % home_id
         return self.__send_request(uri=uri)
 
     def get_home_rooms(self, home_id=None):
@@ -192,7 +195,7 @@ class TuyaCloudClient:
         if not home_id:
             raise TuyaCloudClientException("Missing Function Parameters")
 
-        uri = 'v1.0/homes/%s/rooms' % (home_id)
+        uri = 'v1.0/homes/%s/rooms' % home_id
         return self.__send_request(uri=uri)
 
     def get_home_devices(self, home_id=None):
@@ -203,7 +206,7 @@ class TuyaCloudClient:
         if not home_id:
             raise TuyaCloudClientException("Missing Function Parameters")
 
-        uri = 'v1.0/homes/%s/devices' % (home_id)
+        uri = 'v1.0/homes/%s/devices' % home_id
         return self.__send_request(uri=uri)
 
     def get_home_members(self, home_id=None):
@@ -214,7 +217,7 @@ class TuyaCloudClient:
         if not home_id:
             raise TuyaCloudClientException("Missing Function Parameters")
 
-        uri = 'v1.0/homes/%s/members' % (home_id)
+        uri = 'v1.0/homes/%s/members' % home_id
         return self.__send_request(uri=uri)
 
     def get_room_devices(self, home_id=None, room_id=None):
@@ -249,7 +252,7 @@ class TuyaCloudClient:
         if not user_id:
             raise TuyaCloudClientException("Missing Function Parameters")
 
-        uri = 'v1.0/users/%s/homes' % (user_id)
+        uri = 'v1.0/users/%s/homes' % user_id
         return self.__send_request(uri=uri)
 
     def get_user_devices(self, user_id=None):
@@ -262,11 +265,11 @@ class TuyaCloudClient:
         if not user_id:
             raise TuyaCloudClientException("Missing Function Parameters")
 
-        uri = 'v1.0/users/%s/devices' % (user_id)
+        uri = 'v1.0/users/%s/devices' % user_id
         return self.__send_request(uri=uri)
 
-# other methods
-# should do tests on it
+    # other methods
+    # should do tests on it
     def sendcommand(self, deviceid=None, commands=None):
         """
         Send a command to the device
@@ -274,8 +277,8 @@ class TuyaCloudClient:
         if deviceid is None or commands is None:
             raise TuyaCloudClientException("Missing Function Parameters")
 
-        uri = 'v1.0/iot-03/devices/%s/commands' % (deviceid)
-        response_dict = self.__send_request(uri,action='POST',post=commands)
+        uri = 'v1.0/iot-03/devices/%s/commands' % deviceid
+        response_dict = self.__send_request(uri, action='POST', post=commands)
 
         if not response_dict['success']:
             self.logger.debug("Error from Tuya Cloud: %r", response_dict['msg'])
@@ -288,9 +291,9 @@ class TuyaCloudClient:
         if deviceid is None:
             raise TuyaCloudClientException("Missing Function Parameters")
 
-        uri = 'v1.0/devices/%s' % (deviceid)
+        uri = 'v1.0/devices/%s' % deviceid
         response_dict = self.__send_request(uri)
 
         if not response_dict['success']:
             self.logger.debug("Error from Tuya Cloud: %r" % response_dict['msg'])
-        return(response_dict["result"]["online"])
+        return response_dict["result"]["online"]
