@@ -7,8 +7,8 @@ class TuyaCloudClientNicer(TuyaCloudClient):
             response = func(self, *args, **kwargs)  # type: ignore
             if response['success']:
                 response = response['result']
-            else:
-                raise TuyaCloudClientResponseException("response[result] !True")
+            #else:
+            #    raise TuyaCloudClientResponseException("response[result] !True")
             return response
 
         return decorate
@@ -24,6 +24,24 @@ class TuyaCloudClientNicer(TuyaCloudClient):
     @__metada_cut_decorator  # type: ignore
     def get_device_logs(self, device_id=None):
         return super().get_device_logs(device_id)
+
+    @__metada_cut_decorator  # type: ignore
+    def get_device_functions(self, device_id=None):
+        return super().get_device_functions(device_id)
+
+    @__metada_cut_decorator  # type: ignore
+    def get_device_specifications(self, device_id=None):
+        return super().get_device_specifications(device_id)
+
+    @__metada_cut_decorator  # type: ignore
+    def get_device_status(self, device_id=None):
+        return super().get_device_status(device_id)
+
+
+
+    @__metada_cut_decorator  # type: ignore
+    def get_category_instruction(self, device_id=None):
+        return super().get_category_instruction(device_id)
 
     @__metada_cut_decorator  # type: ignore
     def get_home_data(self, home_id=None):

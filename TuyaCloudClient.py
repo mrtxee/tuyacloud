@@ -134,11 +134,60 @@ class TuyaCloudClient:
         uri = 'v1.0/devices/%s' % device_id
         return self.__send_request(uri=uri)
 
+    def get_device_functions(self, device_id=None):
+        """
+        GET: /v1.0/devices/{device_id}/functions
+        Get the instruction set by device
+        """
+        if not device_id:
+            raise TuyaCloudClientException("Missing Function Parameters")
+
+        uri = 'v1.0/devices/%s/functions' % device_id
+        return self.__send_request(uri=uri)
+
+    def get_device_specifications(self, device_id=None):
+        """
+        GET: /v1.0/devices/{device_id}/specifications
+        Get the device’s specifications and properties (including instruction set and status set)
+        """
+        if not device_id:
+            raise TuyaCloudClientException("Missing Function Parameters")
+
+        uri = 'v1.0/devices/%s/specifications' % device_id
+        return self.__send_request(uri=uri)
+
+    def get_device_status(self, device_id=None):
+        """
+        GET: /v1.0/devices/{device_id}/status
+        Get the latest device status
+        """
+        if not device_id:
+            raise TuyaCloudClientException("Missing Function Parameters")
+
+        uri = 'v1.0/devices/%s/status' % device_id
+        return self.__send_request(uri=uri)
+
+
+    def exec_device_command(self, device_id=None, commands=None):
+        """
+        Send instructions to the device
+        POST: /v1.0/devices/{device_id}/commands
+        """
+        if not device_id or not commands:
+            raise TuyaCloudClientException("Missing Function Parameters")
+
+        uri = 'v1.0/devices/%s/commands' % device_id
+        response_dict = self.__send_request(uri, action='POST', post=commands)
+
+        # if not response_dict['success']:
+        #     self.logger.debug("Error from Tuya Cloud: %r", response_dict['msg'])
+        return response_dict
+
     def get_device_logs(self, device_id=None):
         """
         Query device logs
         GET: /v1.0/devices/{device_id}/logs
-        
+
         # https://developer.tuya.com/en/docs/cloud/8eac85909d?id=Kalmcozgt7nl0
         # GET: /v1.0/iot-03/devices/{device_id}/report-logs
         # Query device status report log
@@ -152,6 +201,17 @@ class TuyaCloudClient:
                   }
         # return self.__send_request(uri=uri)
         return result
+
+    def get_category_instruction(self, category=None):
+        """
+        Get the instruction set by category
+        /v1.0/functions/{category}
+        """
+        if not category:
+            raise TuyaCloudClientException("Missing Function Parameters")
+
+        uri = 'v1.0/functions/' % category
+        return self.__send_request(uri=uri)
 
     def get_home_data(self, home_id=None):
         """
