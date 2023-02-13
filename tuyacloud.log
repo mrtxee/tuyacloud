@@ -1,11 +1,14 @@
-2023-02-10 17:15:33,071 - tuyacloud.TuyaCloudClient - INFO - script started
-2023-02-10 17:21:48,253 - tuyacloud.TuyaCloudClient - INFO - script started
-2023-02-10 17:23:44,395 - tuyacloud.TuyaCloudClient - INFO - script started
-2023-02-10 17:23:56,976 - tuyacloud.TuyaCloudClient - INFO - script started
-2023-02-10 17:29:13,686 - tuyacloud.TuyaCloudClient - INFO - script started
-2023-02-10 17:31:02,282 - tuyacloud.TuyaCloudClient - INFO - script started
-2023-02-10 17:32:25,184 - tuyacloud.TuyaCloudClient - INFO - script started
-2023-02-10 17:33:22,336 - tuyacloud.TuyaCloudClient - INFO - script started
-2023-02-10 17:34:46,140 - tuyacloud.TuyaCloudClient - INFO - script started
-2023-02-10 17:39:41,601 - tuyacloud.TuyaCloudClient - INFO - script started
-2023-02-10 17:42:06,866 - tuyacloud.TuyaCloudClient - INFO - script started
+2023-02-13 18:00:23,239 - tuyacloud.TuyaCloudClient - INFO - script started
+2023-02-13 18:00:23,240 - tuyacloud.TuyaCloudClient - DEBUG - Request URL: https://openapi.tuyaeu.com/v1.0/token?grant_type=1
+2023-02-13 18:00:23,498 - tuyacloud.TuyaCloudClient - DEBUG - GET: response code=200 text={"result":{"access_token":"097bc66d41e37d5ae8f4c3a7910f8f48","expire_time":5961,"refresh_token":"00e3f9282af473c21cfc2168ecf9376d","uid":"ay1563288557476XuyqE"},"success":true,"t":1676300422815,"tid":"23e2a367abaf11edbe05a63cfb33a057"} token=None
+2023-02-13 18:00:23,500 - tuyacloud.TuyaCloudClient - DEBUG - Request URL: https://openapi.tuyaeu.com/v1.0/users/eu1573240497078AokHW/homes
+2023-02-13 18:00:24,273 - tuyacloud.TuyaCloudClient - DEBUG - GET: response code=200 text={"result":[{"geo_name":"175260 ","home_id":14400180,"lat":57.46048440676047,"lon":31.21681854128838,"name":"u24","role":"OWNER"},{"geo_name":"улица Шкиперский Проток 19А ","home_id":14708182,"lat":59.93888784788268,"lon":30.227383151650432,"name":"n30","role":"OWNER"},{"geo_name":"","home_id":55571301,"lat":0,"lon":0,"name":"ks7","role":"OWNER"}],"success":true,"t":1676300423579,"tid":"241ba539abaf11eda120e66c285aff6b"} token=097bc66d41e37d5ae8f4c3a7910f8f48
+2023-02-13 18:00:24,275 - tuyacloud.TuyaCloudClient - DEBUG - Request URL: https://openapi.tuyaeu.com/v1.0/homes/14400180/rooms
+2023-02-13 18:00:24,607 - tuyacloud.TuyaCloudClient - DEBUG - GET: response code=200 text={"result":{"geo_name":"175260 ","home_id":14400180,"lat":57.46048440676047,"lon":31.21681854128838,"name":"u24","rooms":[{"name":"Детская","room_id":21077755},{"name":"Кабинет","room_id":21078425},{"name":"Мсу","room_id":21078434},{"name":"Бсу","room_id":21078435},{"name":"Зал","room_id":21080043},{"name":"Спальня","room_id":21080044},{"name":"Лаунж","room_id":21080045},{"name":"Тех. этаж","room_id":35583207},{"name":"Прихожая","room_id":38683967}]},"success":true,"t":1676300423924,"tid":"248a8c8eabaf11edbe05a63cfb33a057"} token=097bc66d41e37d5ae8f4c3a7910f8f48
+2023-02-13 18:00:24,609 - tuyacloud.TuyaCloudClient - DEBUG - Request URL: https://openapi.tuyaeu.com/v1.0/homes/14400180/rooms/21077755/devices
+2023-02-13 18:00:25,252 - tuyacloud.TuyaCloudClient - DEBUG - Request URL: https://openapi.tuyaeu.com/v1.0/devices/321728022462ab4df0d5/status
+2023-02-13 18:00:25,565 - tuyacloud.TuyaCloudClient - DEBUG - GET: response code=200 text={"result":[{"code":"switch_led_1","value":true},{"code":"bright_value_1","value":683},{"code":"brightness_min_1","value":232},{"code":"led_type_1","value":"incandescent"}],"success":true,"t":1676300424877,"tid":"25181995abaf11edbe05a63cfb33a057"} token=097bc66d41e37d5ae8f4c3a7910f8f48
+2023-02-13 18:00:25,565 - tuyacloud.TuyaCloudClient - DEBUG - Request URL: https://openapi.tuyaeu.com/v1.0/devices/321728022462ab4df0d5/functions
+2023-02-13 18:00:25,836 - tuyacloud.TuyaCloudClient - DEBUG - GET: response code=200 text={"result":{"category":"tgq","functions":[{"code":"switch_led_1","desc":"switch led 1","name":"switch led 1","type":"Boolean","values":"{}"},{"code":"bright_value_1","desc":"bright value 1","name":"bright value 1","type":"Integer","values":"{\"min\":10,\"max\":1000,\"scale\":0,\"step\":1}"},{"code":"brightness_min_1","desc":"brightness min 1","name":"brightness min 1","type":"Integer","values":"{\"min\":10,\"max\":1000,\"scale\":0,\"step\":1}"},{"code":"led_type_1","desc":"led type 1","name":"led type 1","type":"Enum","values":"{\"range\":[\"incandescent\",\"halogen\"]}"}]},"success":true,"t":1676300425150,"tid":"2544624babaf11ed9de742b33a3cd862"} token=097bc66d41e37d5ae8f4c3a7910f8f48
+2023-02-13 18:00:25,838 - tuyacloud.TuyaCloudClient - DEBUG - Request URL: https://openapi.tuyaeu.com/v1.0/devices/321728022462ab4df0d5/commands
+2023-02-13 18:00:25,839 - tuyacloud.TuyaCloudClient - DEBUG - POST: URL=https://openapi.tuyaeu.com/v1.0/devices/321728022462ab4df0d5/commands HEADERS={'Content-type': 'application/json', 'Signature-Headers': 'Content-type', 'client_id': '4fuehnegqrfqspnpymn9', 'sign': 'D5AC9498022EC8662E4630ECBE5D84838584FDF30A948331DCAA7C970CCB44B5', 't': '1676300425838', 'sign_method': 'HMAC-SHA256', 'access_token': '097bc66d41e37d5ae8f4c3a7910f8f48'} DATA={"commands": [{"code": "switch_led_1", "value": true}]}
