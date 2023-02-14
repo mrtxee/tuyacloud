@@ -328,6 +328,12 @@ class TuyaCloudClient:
         uri = 'v1.0/users/%s/devices' % user_id
         return self.__send_request(uri=uri)
 
+    def custom_request(self, uri=None, action='GET', post=None):
+        # uri = 'v1.0/users/%s/homes' % user_id
+        if not uri:
+            raise TuyaCloudClientException("Missing Function Parameters")
+        return self.__send_request(uri=uri, action=action, post=post)
+
     # other methods
     # should do tests on it
     def sendcommand(self, deviceid=None, commands=None):

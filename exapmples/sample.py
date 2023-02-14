@@ -22,14 +22,6 @@ def setup_logger():
     logger_tuya_cloud_client.info("script started")
 setup_logger()
 
-#print('your input is: ', input('Введите строку: '))
-print('''TODO:
-    - авторизоваться в TUYA CLOUD
-    - получить список устройств в аккаунте
-    - для устройства с заданным идентификатором задать прочитать его состояние и функции
-    - дернуть первую функцию устройства
-''');
-
 # создаем экземпляр класса, который будет взаимодействовать с TUYA ENDPOINT
 tcc = tuyacloud.TuyaCloudClientNicer(
     ACCESS_ID       = os.environ.get("ACCESS_ID"),
@@ -37,17 +29,6 @@ tcc = tuyacloud.TuyaCloudClientNicer(
     UID             = os.environ.get("UID"),
     ENDPOINT_URL    = os.environ.get("ENDPOINT_URL")
 )
-
-
-# homes = tcc.get_user_homes()
-# rooms = tcc.get_home_rooms(home_id)['rooms']
-# tcc.get_user_devices()
-# tcc.get_room_devices(room['home_id'], room['room_id'])
-# tcc.get_device_functions(DEVICE_UUID)
-# tcc.get_device_status(DEVICE_UUID)
-# tcc.exec_device_command(DEVICE_UUID, exec)
-
-
 
 # GET LIST OF HOMES
 homes = tcc.get_user_homes()
