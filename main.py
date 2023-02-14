@@ -1,28 +1,47 @@
-import tuyacloud
-
+import src.tuyacloud as tuyacloud
 import json
 import logging
-import inspect
 from logging.handlers import RotatingFileHandler
 import os
 from dotenv import load_dotenv
 
 if os.path.exists(os.path.join(os.path.dirname(__file__), '.env')):
     load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
+'''
+In order to protect credentials form third parties you mat want to keep it isolated environment.
+The simplest way to do that is to to safe file named .env in current dir. Syntax of the file should be:
+
+ACCESS_ID       = 'XXXXXXXXXXXXXXXX'
+ACCESS_SECRET   = 'XXXXXXXXXXXXXXXX'
+UID             = 'XXXXXXXXXXXXXXXX'
+ENDPOINT_URL    = 'openapi.tuyaeu.com'
+
+Acceptable endpoints are:
+openapi.tuyaus.com
+openapi.tuyacn.com
+openapi.tuyaeu.com
+openapi.tuyain.com
+openapi-ueaz.tuyaus.com
+openapi-weaz.tuyaeu.com
+
+BY RUNNING FOLLOWING SCRIPT YOU ACCEPT THAT SOME DEVICE IN YOUR PROJECT MY TOGGLE OR CHANGE ITS STATE. 
+If you are not agree to that you may want to clear usage of exec_device_command() method from the following. 
+'''
+
 
 # SETUP DEFAULT LOGGER IF YOU WHANT TO SEE HOW tuyacloud WORKS
 def setup_logger():
     logger_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    logger_file_handler = logging.handlers.RotatingFileHandler('tuyacloud.log', maxBytes=51200, backupCount=2)
+    logger_file_handler = logging.handlers.RotatingFileHandler('exapmples/tuyacloud.log', maxBytes=51200, backupCount=2)
     logger_file_handler.setLevel(logging.DEBUG)
     logger_file_handler.setFormatter(logger_formatter)
     logger_tuya_cloud_client = logging.getLogger('tuyacloud.TuyaCloudClient')
-    #logger_tuya_cloud_client.setLevel(logging.ERROR)
+    logger_tuya_cloud_client.setLevel(logging.DEBUG)
     logger_tuya_cloud_client.addHandler(logger_file_handler)
     logger_tuya_cloud_client.info("script started")
 setup_logger()
 
-# создаем экземпляр класса, который будет взаимодействовать с TUYA ENDPOINT
+# LETS CREATE INSTANCE OF TUYA CLOUD CLIENT
 tcc = tuyacloud.TuyaCloudClientNicer(
     ACCESS_ID       = os.environ.get("ACCESS_ID"),
     ACCESS_SECRET   = os.environ.get("ACCESS_SECRET"),
@@ -30,7 +49,7 @@ tcc = tuyacloud.TuyaCloudClientNicer(
     ENDPOINT_URL    = os.environ.get("ENDPOINT_URL")
 )
 
-# GET LIST OF HOMES
+# GET LIST OF HOMES UNDER CREDENTIALS PROVIDED
 homes = tcc.get_user_homes()
 if len(homes) > 0:
     print(f"LIST OF HOMES OF {os.environ.get('UID')}:")
@@ -45,13 +64,12 @@ if len(homes) > 0:
             if 'room_id' in rooms[0]:
                 devices = tcc.get_room_devices(homes[0]['home_id'], rooms[0]['room_id'])
                 print(f"DEVICES IN {homes[0]['home_id']}/{rooms[0]['room_id']} ARE:")
-                print(devices)
             else:
                 print("NO ROOMS FOUND.")
                 # GET ALL DEVICES AVAILABLE
                 print("ALL DEVICES ARE:")
                 devices = tcc.get_user_devices()
-                print(devices)
+            print(devices)
 else:
     print("NO HOMES FOUND.")
 
@@ -65,15 +83,15 @@ if len(devices) > devices_index:
         print(device_status)
         device_functions = tcc.get_device_functions(device_uuid)
         if 'success' in device_functions:
-            if False == device_functions['success']:
-                print(f"DEVICE {device_uuid} HAS METHODS AVAILABLE. TRY ANOTHER DEVICE.")
+            if not device_functions['success']:
+                print(f"DEVICE {device_uuid} HAS NO FUNCTIONS AVAILABLE. TRY ANOTHER DEVICE.")
             else:
                 print(f"DEVICE HAS FUNCTIONS RESPONSE ERROR:")
                 print(device_functions)
         else:
             print(f"DEVICE {device_uuid} FUNCTIONS ARE:")
             print(device_functions)
-            # execute command based on device_function
+            # LETS EXECUTE SOME COMMAND OVER THE DEVICE
             function_index = 0
             if len(device_functions['functions']) >= function_index:
                 function = device_functions['functions'][function_index]
