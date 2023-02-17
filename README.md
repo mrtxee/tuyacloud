@@ -106,4 +106,5 @@ You may capture logs by setting logger with id **tuyacloud.TuyaCloudClient** lik
     setup_logger()
 
 ## Links
-For more info see [github.com/mrtxee/tuyacloud](https://github.com/mrtxee/tuyacloud)
+For more info see [github.com/mrtxee/tuyacloud](https://github.com/mrtxee/tuyacloud), 
+PYPI [https://pypi.org/project/tuyacloud/](pypi.org/project/tuyacloud)
