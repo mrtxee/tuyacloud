@@ -1,3 +1,23 @@
+"""
+    Tuya Cloud Client Python package
+    based on http-API for Tuya IoT Development Platform
+
+    Dev. Artem Mironov
+    For more info see https://github.com/mrtxee/tuyacloud
+
+    Initiation of class object:
+        tcc = tuyacloud.TuyaCloudClientNicer(
+            ACCESS_ID       = 'XXXXXXXXXXXXXX',
+            ACCESS_SECRET   = 'XXXXXXXXXXXXXX',
+            UID             = 'XXXXXXXXXXXXXX',
+            ENDPOINT_URL    = 'XXXXXXXXXXXXXX'
+        )
+
+    TuyaCloudClientNicer is an extension over TuyaCloudClient. It provides just the same methods, but brings
+    more significant data in responses, cleaned from meta. Usage of TuyaCloudClientNicer class is preferable
+    for the ost cases. See full list of methods in TuyaCloudClient class description.
+"""
+
 from .TuyaCloudClient import *
 
 
@@ -7,10 +27,6 @@ class TuyaCloudClientNicer(TuyaCloudClient):
             response = func(self, *args, **kwargs)  # type: ignore
             if response['success']:
                 response = response['result']
-            # elif response['data']:
-            #     response = response['data']
-            #else:
-            #    raise TuyaCloudClientResponseException("response[result] !True")
             return response
 
         return decorate
@@ -38,8 +54,6 @@ class TuyaCloudClientNicer(TuyaCloudClient):
     @__metada_cut_decorator  # type: ignore
     def get_device_status(self, device_id=None):
         return super().get_device_status(device_id)
-
-
 
     @__metada_cut_decorator  # type: ignore
     def get_category_instruction(self, device_id=None):

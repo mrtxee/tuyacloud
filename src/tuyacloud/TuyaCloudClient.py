@@ -1,30 +1,37 @@
 """
- Python package for Tuya Cloud Client over http
+    Tuya Cloud Client Python package
+    based on http-API for Tuya IoT Development Platform
 
- Author: Artem Mironov
- For more information see https://github.com/jasonacox/tinytuya
+    Dev. Artem Mironov
+    For more info see https://github.com/mrtxee/tuyacloud
 
- Local Control Classes
-    Cloud(apiRegion, apiKey, apiSecret, apiDeviceID, new_sign_algorithm)
+    Initiation of an instance:
+        tcc = tuyacloud.TuyaCloudClient(
+            ACCESS_ID       = 'XXXXXXXXXXXXXX',
+            ACCESS_SECRET   = 'XXXXXXXXXXXXXX',
+            UID             = 'XXXXXXXXXXXXXX',
+            ENDPOINT_URL    = 'XXXXXXXXXXXXXX'
+        )
+    Class public methods are:
+        .get_user_homes()
+        .get_user_devices()
+        .get_device_information(device_id:uuid)
+        .get_device_details(device_id:uuid)
+        .get_device_functions(device_id:uuid)
+        .get_device_specifications(device_id:uuid)
+        .get_device_status(device_id:uuid)
+        .get_device_logs(device_id:uuid)
+        .get_home_data(home_id:int)
+        .get_home_rooms(home_id:int)
+        .get_home_devices(home_id:int)
+        .get_home_members(home_id:int)
+        .get_room_devices(home_id:int, room_id:int)
+        .get_category_list()
+        .get_category_instruction(category:str)
+        .exec_device_command(device_id:uuid, commands:JSON)
 
- Functions
-    Cloud
-        setregion(apiRegion)
-        cloudrequest(url, action=[POST if post else GET], post={}, query={})
-        getdevices(verbose=False)
-        getstatus(deviceid)
-        getfunctions(deviceid)
-        getproperties(deviceid)
-        getdps(deviceid)
-        sendcommand(deviceid, commands)
-        getconnectstatus(deviceid)
-        getdevicelog(deviceid, start=[now - 1 day], end=[now], evtype="1,2,3,4,5,6,7,8,9,10", size=100, params={})
-          -> when start or end are negative, they are the number of days before "right now"
-             i.e. "start=-1" is 1 day ago, "start=-7" is 7 days ago
-
- Reference
-    * https://developer.tuya.com/en/docs/cloud/device-connection-service?id=Kb0b8geg6o761
-
+    Reference
+        - https://developer.tuya.com/en/docs/cloud/80bb968f1d?id=Ka7kjv3j8jgvr
 """
 
 import hashlib

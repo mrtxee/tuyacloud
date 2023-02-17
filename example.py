@@ -1,3 +1,12 @@
+"""
+    Tuya Cloud Client Python package
+    based on http-API for Tuya IoT Development Platform
+
+    Dev. Artem Mironov
+    For more info see https://github.com/mrtxee/tuyacloud
+
+    TUYA CLOUD CLIENT USAGE EXAMPLE
+"""
 import src.tuyacloud as tuyacloud
 import json
 import logging
@@ -8,24 +17,24 @@ from dotenv import load_dotenv
 if os.path.exists(os.path.join(os.path.dirname(__file__), '.env')):
     load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 '''
-In order to protect credentials form third parties you mat want to keep it isolated environment.
-The simplest way to do that is to to safe file named .env in current dir. Syntax of the file should be:
-
-ACCESS_ID       = 'XXXXXXXXXXXXXXXX'
-ACCESS_SECRET   = 'XXXXXXXXXXXXXXXX'
-UID             = 'XXXXXXXXXXXXXXXX'
-ENDPOINT_URL    = 'openapi.tuyaeu.com'
-
-Acceptable endpoints are:
-openapi.tuyaus.com
-openapi.tuyacn.com
-openapi.tuyaeu.com
-openapi.tuyain.com
-openapi-ueaz.tuyaus.com
-openapi-weaz.tuyaeu.com
-
-BY RUNNING FOLLOWING SCRIPT YOU ACCEPT THAT SOME DEVICE IN YOUR PROJECT MY TOGGLE OR CHANGE ITS STATE. 
-If you are not agree to that you may want to clear usage of exec_device_command() method from the following. 
+    In order to protect credentials form third parties you mat want to keep it isolated environment.
+    The simplest way to do that is to to safe file named .env in current dir. Syntax of the file should be:
+    
+    ACCESS_ID       = 'XXXXXXXXXXXXXXXX'
+    ACCESS_SECRET   = 'XXXXXXXXXXXXXXXX'
+    UID             = 'XXXXXXXXXXXXXXXX'
+    ENDPOINT_URL    = 'openapi.tuyaeu.com'
+    
+    Acceptable endpoints are:
+    openapi.tuyaus.com
+    openapi.tuyacn.com
+    openapi.tuyaeu.com
+    openapi.tuyain.com
+    openapi-ueaz.tuyaus.com
+    openapi-weaz.tuyaeu.com
+    
+    BY RUNNING FOLLOWING SCRIPT YOU ACCEPT THAT SOME DEVICE IN YOUR PROJECT MY TOGGLE OR CHANGE ITS STATE. 
+    If you are not agree to that you may want to clear usage of exec_device_command() method from the following.
 '''
 
 
@@ -74,7 +83,7 @@ else:
     print("NO HOMES FOUND.")
 
 # GET CURRENT DEVICE STATE & LIST OF DEVICE FUNCTIONS AVAILABLE
-devices_index = 1
+devices_index = 0
 if len(devices) > devices_index:
     if 'uuid' in devices[devices_index]:
         device_uuid = devices[devices_index]['uuid']

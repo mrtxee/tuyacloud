@@ -1,27 +1,92 @@
-# Example Package
+# Tuya Cloud Client
+Tuya Cloud Client Python package based on http-API for [Tuya IoT Development Platform](https://developer.tuya.com/en/docs/iot). TuyaCloudClient provides full fuctionality for remote manipulation with Tuya IoT platform based smart devices.
 
-This is a simple example package. You can use
-[Github-flavored Markdown](https://guides.github.com/features/mastering-markdown/)
-to write your content.
+# Overview
+Tuya Cloud Client implies quick client functionality for an easy interaction with Tuya services. Most suitable for building software with Tuya API integrated services.
 
-Example Project
-===============
-This is an example project that is used to demonstrate how to publish
-Python packages on PyPI. To take a look at the step by step guide on how to 
-do so, make sure you read `my article on Towards Data Science <https://towardsdatascience.com/how-to-upload-your-python-package-to-pypi-de1b363a1b3>`_.
+Major fuctionality of Tuya Cloud Client package is based on two classes: **TuyaCloudClient & TuyaCloudClientNicer**. TuyaCloudClientNicer is an extension over TuyaCloudClient. It provides just the same methods, but brings  more significant data in responses, cleaned from meta. Usage of TuyaCloudClientNicer class is preferable for the most cases. 
 
-Installing
-============
+## Functionality
+Intuitive functional interface of a service object
+ - get_user_homes()
+ - get_user_devices()
+ - get_device_information(device_id:uuid)
+ - get_device_details(device_id:uuid)
+ - get_device_functions(device_id:uuid)
+ - get_device_specifications(device_id:uuid)
+ - get_device_status(device_id:uuid)
+ - get_device_logs(device_id:uuid)
+ - get_home_data(home_id:int)
+ - get_home_rooms(home_id:int)
+ - get_home_devices(home_id:int)
+ - get_home_members(home_id:int)
+ - get_room_devices(home_id:int, room_id:int)
+ - get_category_list()
+ - get_category_instruction(category:str)
+ - exec_device_command(device_id:uuid, commands:JSON)
 
-.. code-block:: bash
+## Installation
 
     pip install tuyacloud
 
-Usage
-=====
+## Getting started
+OOP based package
 
-.. code-block:: bash
+### Initiation of an object
+    tcc = tuyacloud.TuyaCloudClientNicer(
+        ACCESS_ID       = 'XXXXXXXXXXXXXX',
+        ACCESS_SECRET   = 'XXXXXXXXXXXXXX',
+        UID             = 'XXXXXXXXXXXXXX',
+        ENDPOINT_URL    = 'XXXXXXXXXXXXXX'
+    )
 
-    >>> from src.example import custom_sklearn
-    >>> custom_sklearn.get_sklearn_version()
-    '0.24.2'
+Credentials **ACCESS_ID, ACCESS_SECRET, UID** could be claimed at [iot.tuya.com](https://iot.tuya.com). **ENDPOINT_URL** is to be chosen by user from 
+
+#### List of tuya endpoints:
+    Availability zone	Endpoint
+    America	            openapi.tuyaus.com
+    China	            openapi.tuyacn.com
+    Europe	            openapi.tuyaeu.com
+    India	            openapi.tuyain.com
+    Eastern America	    openapi-ueaz.tuyaus.com
+    Western Europe	    openapi-weaz.tuyaeu.com
+
+### Getting data from tuya endpoint, example
+Call methods
+
+    homes = tcc.get_user_homes()
+    print(homes)
+    
+Get response
+
+    [
+        {
+            "geo_name": "Hong-Kong, Main str. 2716",
+            "home_id": 1490003,
+            "lat": 00.460004060004,
+            "lon": 00.219918549988,
+            "name": "Bachelor Condo",
+            "role": "OWNER"
+        },
+        ...
+    ]
+### Execute command over device, example
+Call methods
+
+    device_uuid = "3217xxxxxxxxxxx"
+    commands = []
+    commands.append({
+        "code": "switch_led_1",
+        "value": True
+    })
+    exec_result = tcc.exec_device_command(device_uuid, {"commands": commands})
+    print(exec_result)
+
+Get response
+
+    {
+        "result": True,
+        "success": True,
+        "t": 1676636545787,
+        "tid": "bcc21939aebd11ed838e2a0aa76353ad"
+    }
