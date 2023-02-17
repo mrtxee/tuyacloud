@@ -7,7 +7,7 @@
 
     TUYA CLOUD CLIENT USAGE EXAMPLE
 """
-import tuyacloud    #src.tuyacloud as tuyacloud
+import tuyacloud
 import json
 import os
 from dotenv import load_dotenv
@@ -34,6 +34,7 @@ if os.path.exists(os.path.join(os.path.dirname(__file__), '.env')):
     BY RUNNING FOLLOWING SCRIPT YOU ACCEPT THAT SOME DEVICE IN YOUR PROJECT MY TOGGLE OR CHANGE ITS STATE. 
     If you are not agree to that you may want to clear usage of exec_device_command() method from the following.
 '''
+
 # LETS CREATE INSTANCE OF TUYA CLOUD CLIENT
 tcc = tuyacloud.TuyaCloudClientNicer(
     ACCESS_ID       = os.environ.get("ACCESS_ID"),

@@ -1,21 +1,13 @@
-[build-system]
-requires = ['hashlib',
-'hmac',
-'json',
-'logging',
-'time',
-'requests']
-build-backend = "hatchling.build"
-
 [project]
 name = "tuyacloud"
-version = "1.0"
+version = "1.0.1"
 authors = [
   { name="Artem Mironov", email="mrtxee@gmail.com" }
 ]
-description = "Tuya Cloud Client over http for a daily use"
+description = "Tuya Cloud Client package based on http-API for Tuya IoT Development Platform"
 readme = "README.md"
 requires-python = ">=3.0"
+keywords = ["tuya", "client", "http", "api", "samrthome", "iot"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
@@ -25,3 +17,7 @@ classifiers = [
 [project.urls]
 "Homepage" = "https://github.com/mrtxee/tuyacloud"
 "Bug Tracker" = "https://github.com/mrtxee/tuyacloud/issues"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

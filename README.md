@@ -27,7 +27,7 @@ Intuitive functional interface of a service object
 
 ## Installation
 
-    pip install tuyacloud
+    python3 -m pip install tuyacloud
 
 ## Getting started
 OOP based package
@@ -90,3 +90,20 @@ Get response
         "t": 1676636545787,
         "tid": "bcc21939aebd11ed838e2a0aa76353ad"
     }
+
+### Use built-in logger functionality, example
+You may capture logs by setting logger with id **tuyacloud.TuyaCloudClient** like so
+
+    def setup_logger():
+        logger_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        logger_file_handler = logging.handlers.RotatingFileHandler('tuyacloud.log', maxBytes=51200, backupCount=2)
+        logger_file_handler.setLevel(logging.DEBUG)
+        logger_file_handler.setFormatter(logger_formatter)
+        logger_tuya_cloud_client = logging.getLogger('tuyacloud.TuyaCloudClient')
+        logger_tuya_cloud_client.setLevel(logging.DEBUG)
+        logger_tuya_cloud_client.addHandler(logger_file_handler)
+        logger_tuya_cloud_client.info("script started")
+    setup_logger()
+
+## Links
+For more info see [github.com/mrtxee/tuyacloud](https://github.com/mrtxee/tuyacloud)
