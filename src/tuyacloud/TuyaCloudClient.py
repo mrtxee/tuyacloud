@@ -203,7 +203,6 @@ class TuyaCloudClient:
         uri = 'v1.0/devices/%s/status' % device_id
         return self.__send_request(uri=uri)
 
-
     def exec_device_command(self, device_id=None, commands=None):
         """
         Send instructions to the device
@@ -370,32 +369,22 @@ class TuyaCloudClient:
             raise TuyaCloudClientException("Missing Function Parameters")
         return self.__send_request(uri=uri, action=action, post=post)
 
-    # other methods
-    # should do tests on it
-    def sendcommand(self, deviceid=None, commands=None):
+    def get_remote_controls(self, device_id=None):
         """
-        Send a command to the device
+        Get a list of remote controls under the specified device based on the device ID.
+        GET: /v2.0/infrareds/{infrared_id}/remotes
         """
-        if deviceid is None or commands is None:
+        if not device_id:
             raise TuyaCloudClientException("Missing Function Parameters")
+        uri = 'v2.0/infrareds/%s/remotes' % device_id
+        return self.__send_request(uri=uri)
 
-        uri = 'v1.0/iot-03/devices/%s/commands' % deviceid
-        response_dict = self.__send_request(uri, action='POST', post=commands)
-
-        if not response_dict['success']:
-            self.logger.debug("Error from Tuya Cloud: %r", response_dict['msg'])
-        return response_dict
-
-    def getconnectstatus(self, deviceid=None):
+    def get_remote_control_keys(self, device_id=None, remote_id=None):
         """
-        Get the device Cloud connect status. 
+        Get the information about the keys supported by the remote control based on the remote control ID.
+        GET: /v2.0/infrareds/{infrared_id}/remotes/{remote_id}/keys
         """
-        if deviceid is None:
+        if not device_id or not remote_id:
             raise TuyaCloudClientException("Missing Function Parameters")
-
-        uri = 'v1.0/devices/%s' % deviceid
-        response_dict = self.__send_request(uri)
-
-        if not response_dict['success']:
-            self.logger.debug("Error from Tuya Cloud: %r" % response_dict['msg'])
-        return response_dict["result"]["online"]
+        uri = 'v2.0/infrareds/%s/remotes/%s/keys' % (device_id, remote_id)
+        return self.__send_request(uri=uri)
