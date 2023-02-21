@@ -25,8 +25,29 @@ tcc = tuyacloud.TuyaCloudClientNicer(
 
 
 
-resp = tcc.get_remote_controls("124176102462ab16d5fd")
-#resp = tcc.get_remote_control_keys("124176102462ab16d5fd","bffe4c709473b5ce88d4pk")
+#resp = tcc.get_remote_controls("124176102462ab16d5fd")
+resp = tcc.get_remote_control_keys("124176102462ab16d5fd","bffe4c709473b5ce88d4pk")
+'''
+Send Key Command
+The remote control sends an infrared code to control the specified device through key commands.
+POST: /v2.0/infrareds/{infrared_id}/remotes/{remote_id}/raw/command
+{
+  "category_id": 2,
+  "remote_index": 147,
+  "key": "power",
+  "key_id": 1
+}
+'''
+post = {
+    "category_id": 999,
+    "remote_index": 1670108591,
+    "key": 1670109573919,
+    "key_id": 12
+}
+# resp = tcc.custom_request(uri, 'POST', post)
+uri = 'v2.0/infrareds/124176102462ab16d5fd/remotes/bffe4c709473b5ce88d4pk/raw/command'
+#resp = tcc.custom_request(uri, 'POST', post)
+resp = tcc.send_remote_control_command("124176102462ab16d5fd","bffe4c709473b5ce88d4pk", post)
 print(resp)
 
 
