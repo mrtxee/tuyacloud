@@ -16,17 +16,53 @@ if os.path.exists(os.path.join(os.path.dirname(__file__), '.env')):
     load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 
 # LETS CREATE INSTANCE OF TUYA CLOUD CLIENT
-tcc = tuyacloud.TuyaCloudClientNicer(
-    ACCESS_ID       = os.environ.get("ACCESS_ID"),
-    ACCESS_SECRET   = os.environ.get("ACCESS_SECRET"),
-    UID             = os.environ.get("UID"),
-    ENDPOINT_URL    = os.environ.get("ENDPOINT_URL")
+tcc = tuyacloud.TuyaCloudClient(
+    # ACCESS_ID       = os.environ.get("ACCESS_ID"),
+    # ACCESS_SECRET   = os.environ.get("ACCESS_SECRET"),
+    # UID             = os.environ.get("UID"),
+    # ENDPOINT_URL    = os.environ.get("ENDPOINT_URL")
+
+    # Grey Talon
+    ACCESS_ID       = 'n4gd3u3g3ma5733jayc5',
+    ACCESS_SECRET   = '0311ad61d889402081f19c6891ca4f67',
+    UID             = 'eu1626370410140OlW8o',
+    ENDPOINT_URL    = 'openapi.tuyaeu.com'
+
 )
 
 
+'''
+IR+RF
+wnykq.qykarcgblvlg967t.bf77fac6b9a806178fesax
+санузел
+rf_curtain.0000003nzg.bf17c9530746a7ad9cwztz
+справа
+rf_curtain.0000003nzg.bfb9ab1cd20e249fe0vxyo
+окно
+rf_curtain.0000003nzg.bfb140a36bfa95b021dtyi
+слева
+rf_curtain.0000003nzg.bf8c58580f78d4fba87mmv
+роллеты
+rf_diy.0000003o5p.bf49b741a46e40cf07gdpc
+'''
+#resp = tcc.get_subdevices("bf77fac6b9a806178fesax")
+#print(resp) get_remote_controls
+#resp = tcc.get_remote_control_keys("bf77fac6b9a806178fesax","bfb09341ec37c0a126zjt3")
 
-#resp = tcc.get_remote_controls("124176102462ab16d5fd")
-resp = tcc.get_remote_control_keys("124176102462ab16d5fd","bffe4c709473b5ce88d4pk")
+#uri ="v1.0/devices/bf77fac6b9a806178fesax/sub-devices"
+#resp = tcc.custom_request(uri)
+
+#/bf77fac6b9a806178fesax/bfb140a36bfa95b021dtyi/1/1676159122/power_on/1
+#/bf77fac6b9a806178fesax/bf8c58580f78d4fba87mmv/ 1/1676159116/stop/3
+post = {
+    "category_id": 1,
+    "remote_index": 1676159116,
+    "key": "stop",
+    "key_id": 3
+}
+resp = tcc.send_remote_control_command("bf77fac6b9a806178fesax","bf8c58580f78d4fba87mmv", post)
+print(resp)
+
 '''
 Send Key Command
 The remote control sends an infrared code to control the specified device through key commands.
@@ -38,17 +74,17 @@ POST: /v2.0/infrareds/{infrared_id}/remotes/{remote_id}/raw/command
   "key_id": 1
 }
 '''
-post = {
-    "category_id": 999,
-    "remote_index": 1670108591,
-    "key": 1670109573919,
-    "key_id": 12
-}
+# post = {
+#     "category_id": 999,
+#     "remote_index": 1670108591,
+#     "key": 1670109573919,
+#     "key_id": 12
+# }
 # resp = tcc.custom_request(uri, 'POST', post)
-uri = 'v2.0/infrareds/124176102462ab16d5fd/remotes/bffe4c709473b5ce88d4pk/raw/command'
+# uri = 'v2.0/infrareds/124176102462ab16d5fd/remotes/bffe4c709473b5ce88d4pk/raw/command'
 #resp = tcc.custom_request(uri, 'POST', post)
-resp = tcc.send_remote_control_command("124176102462ab16d5fd","bffe4c709473b5ce88d4pk", post)
-print(resp)
+# resp = tcc.send_remote_control_command("124176102462ab16d5fd","bffe4c709473b5ce88d4pk", post)
+#print(resp)
 
 
 # problematic
