@@ -15,21 +15,29 @@ from dotenv import load_dotenv
 if os.path.exists(os.path.join(os.path.dirname(__file__), '.env')):
     load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 
+print(os.environ.get("ACCESS_ID"))
+
 # LETS CREATE INSTANCE OF TUYA CLOUD CLIENT
 tcc = tuyacloud.TuyaCloudClient(
-    # ACCESS_ID       = os.environ.get("ACCESS_ID"),
-    # ACCESS_SECRET   = os.environ.get("ACCESS_SECRET"),
-    # UID             = os.environ.get("UID"),
-    # ENDPOINT_URL    = os.environ.get("ENDPOINT_URL")
+    ACCESS_ID       = os.environ.get("ACCESS_ID"),
+    ACCESS_SECRET   = os.environ.get("ACCESS_SECRET"),
+    UID             = os.environ.get("UID"),
+    ENDPOINT_URL    = os.environ.get("ENDPOINT_URL")
 
     # Grey Talon
-    ACCESS_ID       = 'n4gd3u3g3ma5733jayc5',
-    ACCESS_SECRET   = '0311ad61d889402081f19c6891ca4f67',
-    UID             = 'eu1626370410140OlW8o',
-    ENDPOINT_URL    = 'openapi.tuyaeu.com'
+    # ACCESS_ID       = 'n4gd3u3g3ma5733jayc5',
+    # ACCESS_SECRET   = '0311ad61d889402081f19c6891ca4f67',
+    # UID             = 'eu1626370410140OlW8o',
+    # ENDPOINT_URL    = 'openapi.tuyaeu.com'
 
 )
 
+
+
+uri = 'v1.0/devices/bffe4c709473b5ce88d4pk/status'
+
+resp = tcc.custom_request(uri)
+print(resp)
 
 '''
 IR+RF
@@ -54,14 +62,30 @@ rf_diy.0000003o5p.bf49b741a46e40cf07gdpc
 
 #/bf77fac6b9a806178fesax/bfb140a36bfa95b021dtyi/1/1676159122/power_on/1
 #/bf77fac6b9a806178fesax/bf8c58580f78d4fba87mmv/ 1/1676159116/stop/3
+uri = 'v2.0/infrareds/124176102462ab16d5fd/remotes/bffe4c709473b5ce88d4pk/raw/command'
 post = {
-    "category_id": 1,
-    "remote_index": 1676159116,
-    "key": "stop",
-    "key_id": 3
+    "category_id": 999,
+    "remote_index": 1670108591,
+    "key": "1670108550934",
+    "key_id": 9
 }
-resp = tcc.send_remote_control_command("bf77fac6b9a806178fesax","bf8c58580f78d4fba87mmv", post)
-print(resp)
+
+uri = 'v2.0/infrareds/124176102462ab16d5fd/remotes/bffe4c709473b5ce88d4pk/command'
+post = {
+  "categoryId": 999,
+  "remoteIndex": 1670108591,
+  "key": "1670108550934"
+}
+
+
+uri = 'v1.0/infrareds/124176102462ab16d5fd/remotes/bffe4c709473b5ce88d4pk/send-keys'
+post = {
+  "key": "1670108550934"
+}
+
+
+
+
 
 '''
 Send Key Command
@@ -82,7 +106,7 @@ POST: /v2.0/infrareds/{infrared_id}/remotes/{remote_id}/raw/command
 # }
 # resp = tcc.custom_request(uri, 'POST', post)
 # uri = 'v2.0/infrareds/124176102462ab16d5fd/remotes/bffe4c709473b5ce88d4pk/raw/command'
-#resp = tcc.custom_request(uri, 'POST', post)
+# resp = tcc.custom_request(uri, 'POST', post)
 # resp = tcc.send_remote_control_command("124176102462ab16d5fd","bffe4c709473b5ce88d4pk", post)
 #print(resp)
 
