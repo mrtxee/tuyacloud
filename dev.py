@@ -23,13 +23,29 @@ tcc = tuyacloud.TuyaCloudClient(
     # ENDPOINT_URL    = os.environ.get("ENDPOINT_URL")
 
     # Grey Talon
-    ACCESS_ID       = 'n4gd3u3g3ma5733jayc5',
-    ACCESS_SECRET   = '0311ad61d889402081f19c6891ca4f67',
-    UID             = 'eu1626370410140OlW8o',
-    ENDPOINT_URL    = 'openapi.tuyaeu.com'
+    # ACCESS_ID       = 'n4gd3u3g3ma5733jayc5',
+    # ACCESS_SECRET   = '0311ad61d889402081f19c6891ca4f67',
+    # UID             = 'eu1626370410140OlW8o',
+    # ENDPOINT_URL    = 'openapi.tuyaeu.com'
+
+    ACCESS_ID = 'j5gf5hcqxgdm5mdf4gds',
+    ACCESS_SECRET = 'ff4457b83e3b4a2b9813bdd22e20e30e',
+    UID = 'eu16739413578339HJPl',
+    ENDPOINT_URL = 'openapi.tuyaeu.com'
 
 )
 
+
+uri ="v1.0/devices/bffb207e896d67b52fnlpb/logs?start_row_key=1&type=1,2&start_time=0&end_time=1677590223000&size=20&query_type=1"
+uri ="v1.0/iot-03/devices/bffb207e896d67b52fnlpb/report-logs?last_row_key=&codes=1,2&start_time=0&end_time=1545898159935&size=20"
+resp = tcc.custom_request(uri)
+print(resp)
+
+# resp = tcc.get_device_status('bffb207e896d67b52fnlpb')
+# print(resp)
+
+# resp = tcc.get_device_logs('bffb207e896d67b52fnlpb')
+# print(resp)
 
 '''
 IR+RF
@@ -54,14 +70,17 @@ rf_diy.0000003o5p.bf49b741a46e40cf07gdpc
 
 #/bf77fac6b9a806178fesax/bfb140a36bfa95b021dtyi/1/1676159122/power_on/1
 #/bf77fac6b9a806178fesax/bf8c58580f78d4fba87mmv/ 1/1676159116/stop/3
-post = {
-    "category_id": 1,
-    "remote_index": 1676159116,
-    "key": "stop",
-    "key_id": 3
-}
-resp = tcc.send_remote_control_command("bf77fac6b9a806178fesax","bf8c58580f78d4fba87mmv", post)
-print(resp)
+
+
+
+# post = {
+#     "category_id": 1,
+#     "remote_index": 1676159116,
+#     "key": "stop",
+#     "key_id": 3
+# }
+# resp = tcc.send_remote_control_command("bf77fac6b9a806178fesax","bf8c58580f78d4fba87mmv", post)
+# print(resp)
 
 '''
 Send Key Command

@@ -221,21 +221,31 @@ class TuyaCloudClient:
     def get_device_logs(self, device_id=None):
         """
         Query device logs
+        https://developer.tuya.com/en/docs/cloud/device-management?id=K9g6rfntdz78a
         GET: /v1.0/devices/{device_id}/logs
+        ?start_row_key=&type=1,2,3,4,5,6,7,8,9,10&start_time=0&end_time=1545898159935&size=20
 
         # https://developer.tuya.com/en/docs/cloud/8eac85909d?id=Kalmcozgt7nl0
         # GET: /v1.0/iot-03/devices/{device_id}/report-logs
         # Query device status report log
         """
+        start_row_key = ''
+        type = '1,2,3,4,5,6,7,8,9,10'
+        start_time = '0'
+        end_time = '1677589689' # https://www.unixtimestamp.com/
+        size='10'
+
         if not device_id:
             raise TuyaCloudClientException("Missing Function Parameters")
 
-        # uri = 'v1.0/devices/%s/logs' % device_id
-        result = {'result': 'method is under maintainse',
-                  'msg': 'make yo ass into work launch it'
-                  }
+        uri = 'v1.0/devices/%s/logs?start_row_key=&type=1,2&start_time=0&end_time=1545898159935&size=20&query_type=1' % device_id
+        # result = {'result': 'method is under maintainse',
+        #           'msg': 'make yo ass into work launch it'
+        #           }
+        # uri = 'v1.0/devices/%s/status' % device_id
         # return self.__send_request(uri=uri)
-        return result
+        return self.__send_request(uri=uri)
+        # return result
 
     def get_category_instruction(self, category=None):
         """
