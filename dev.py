@@ -15,19 +15,19 @@ from dotenv import load_dotenv
 if os.path.exists(os.path.join(os.path.dirname(__file__), '.env')):
     load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 
+print(os.environ.get("ACCESS_ID"))
+
 # LETS CREATE INSTANCE OF TUYA CLOUD CLIENT
 tcc = tuyacloud.TuyaCloudClient(
-    # ACCESS_ID       = os.environ.get("ACCESS_ID"),
-    # ACCESS_SECRET   = os.environ.get("ACCESS_SECRET"),
-    # UID             = os.environ.get("UID"),
-    # ENDPOINT_URL    = os.environ.get("ENDPOINT_URL")
+    ACCESS_ID       = os.environ.get("ACCESS_ID"),
+    ACCESS_SECRET   = os.environ.get("ACCESS_SECRET"),
+    ENDPOINT_URL    = os.environ.get("ENDPOINT_URL")
 
     # Grey Talon
     # ACCESS_ID       = 'n4gd3u3g3ma5733jayc5',
     # ACCESS_SECRET   = '0311ad61d889402081f19c6891ca4f67',
     # UID             = 'eu1626370410140OlW8o',
     # ENDPOINT_URL    = 'openapi.tuyaeu.com'
-
     ACCESS_ID = 'j5gf5hcqxgdm5mdf4gds',
     ACCESS_SECRET = 'ff4457b83e3b4a2b9813bdd22e20e30e',
     UID = 'eu16739413578339HJPl',
@@ -46,6 +46,7 @@ print(resp)
 
 # resp = tcc.get_device_logs('bffb207e896d67b52fnlpb')
 # print(resp)
+
 
 '''
 IR+RF
@@ -73,6 +74,7 @@ rf_diy.0000003o5p.bf49b741a46e40cf07gdpc
 
 
 
+
 # post = {
 #     "category_id": 1,
 #     "remote_index": 1676159116,
@@ -81,6 +83,7 @@ rf_diy.0000003o5p.bf49b741a46e40cf07gdpc
 # }
 # resp = tcc.send_remote_control_command("bf77fac6b9a806178fesax","bf8c58580f78d4fba87mmv", post)
 # print(resp)
+
 
 '''
 Send Key Command
@@ -101,7 +104,7 @@ POST: /v2.0/infrareds/{infrared_id}/remotes/{remote_id}/raw/command
 # }
 # resp = tcc.custom_request(uri, 'POST', post)
 # uri = 'v2.0/infrareds/124176102462ab16d5fd/remotes/bffe4c709473b5ce88d4pk/raw/command'
-#resp = tcc.custom_request(uri, 'POST', post)
+# resp = tcc.custom_request(uri, 'POST', post)
 # resp = tcc.send_remote_control_command("124176102462ab16d5fd","bffe4c709473b5ce88d4pk", post)
 #print(resp)
 
