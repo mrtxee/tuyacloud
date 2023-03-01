@@ -21,6 +21,7 @@ print(os.environ.get("ACCESS_ID"))
 tcc = tuyacloud.TuyaCloudClient(
     ACCESS_ID       = os.environ.get("ACCESS_ID"),
     ACCESS_SECRET   = os.environ.get("ACCESS_SECRET"),
+    UID             = os.environ.get("UID"),
     ENDPOINT_URL    = os.environ.get("ENDPOINT_URL")
 
     # Grey Talon
